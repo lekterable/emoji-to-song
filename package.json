@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "install": "yarn && (cd client && yarn)",
+    "install": "cd client && npm install",
+    "heroku-postbuild": "cd client && npm run build",
     "start": "concurrently  \"nodemon -r babel-register server.js\" \"cd client && PORT=3000 yarn start\""
   },
   "author": "",
