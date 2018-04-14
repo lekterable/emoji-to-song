@@ -6,7 +6,7 @@
   "scripts": {
     "install": "cd client && npm install",
     "heroku-postbuild": "cd client && npm run build",
-    "start": "concurrently  \"nodemon -r babel-register server.js\" \"cd client && PORT=3000 yarn start\""
+    "start": "concurrently  \"nodemon -r babel-register server.js\" \"cd client && PORT=3000 npm start\""
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.2",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.0.14"
   },
   "devDependencies": {
     "babel-register": "^6.26.0",
