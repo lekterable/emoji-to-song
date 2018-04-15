@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 import './Header.css'
 
 export default class Header extends Component {
   render() {
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
-            <a className="navbar-brand" href="/">emoji <span role="img" aria-label="hand">✌️</span> song</a>
+            <NavLink className="navbar-brand" to="/" >emoji <span role="img" aria-label="hand">✌️</span> song</NavLink>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarColor03">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="/"><span role="img" aria-label="loupe">🔎</span> browse</a>
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <NavLink exact className="nav-link" to="/" ><span role="img" aria-label="loupe">🔎</span> browse</NavLink>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/add"><span role="img" aria-label="plus">➕</span> add</a>
+                        <NavLink exact className="nav-link" to="/add" ><span role="img" aria-label="plus">➕</span> add</NavLink>
                     </li>
                 </ul>
             </div>
