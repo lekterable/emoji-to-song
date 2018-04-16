@@ -4,8 +4,9 @@ import { filterWithEmojis } from '../libs'
 import { split } from 'lodash'
 import Banner from '../components/Banner'
 import ResultsList from '../components/ResultsList'
+import './Home.css'
 
-export default class Home extends Component {
+export default class extends Component {
     state = {
         artists: [],
         songs: [],
@@ -38,11 +39,11 @@ export default class Home extends Component {
         return (
             <div>
                 <Banner/>
-                <div className="form-group col-12" onChange={this.handleSearchType}>
-                <input name="type" type="radio" value="songs" defaultChecked/> Songs <input name="type" type="radio" value="artists"/> Artists <input name="type" type="radio" value="both"/> Both
+                <div className="form-group col-12 search-type" onChange={this.handleSearchType}>
+                  <input name="type" type="radio" value="songs" defaultChecked/> Songs <input name="type" type="radio" value="artists"/> Artists <input name="type" type="radio" value="both"/> Both
                 </div>
-                <div className="form-group col-12">
-                <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.search.value} onChange={this.handleSearch} type="text"/>
+                <div className="form-group col-12 search-value">
+                  <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.search.value} onChange={this.handleSearch} type="text"/>
                 </div>
                 <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleEmojiInput} color='#D9230F'/>
                 <ResultsList songs={songs} artists={artists} search={this.state.search}/>

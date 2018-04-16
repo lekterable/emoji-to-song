@@ -1,0 +1,39 @@
+.artist-thumbnail {
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+.artist-name, .track-name {
+    font-size: 16px;
+}
+.list-group-item {
+    text-align: left;
+}
+.app-title {
+    font-size: 35px;
+}
+.app-description {
+    font-size: 15px;
+}
+
+input[type='text'] {
+    font-size: 16px;
+}
+
+.search-type {
+    font-size: 17px;
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+    .search-type{
+        font-size: 15px;
+    }
+}

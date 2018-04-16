@@ -6,7 +6,7 @@ import './index.css'
 import 'emoji-mart/css/emoji-mart.css'
 import Home from './Home';
 
-export default class App extends Component {
+export default class extends Component {
   render() {
     return (
      

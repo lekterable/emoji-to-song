@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import './Header.css'
 
-export default class Header extends Component {
+export default class extends Component {
   render() {
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
