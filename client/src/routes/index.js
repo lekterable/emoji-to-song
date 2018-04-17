@@ -4,7 +4,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import './index.css'
 import 'emoji-mart/css/emoji-mart.css'
-import Home from './Home';
+import Home from './Home'
+import Add from './Add'
 
 export default class extends Component {
   render() {
@@ -15,7 +16,8 @@ export default class extends Component {
           <div>
             <Header/>
             <Switch>
-              <Route path="/" render={()=><Home />}/>
+              <Route exact path="/" render={()=><Home />}/>
+              <Route exact path="/add" render={()=><Add />}/>
             </Switch>
             <Footer content="Made with ♥ by github.com/lekterable"/>
           </div>

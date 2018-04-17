@@ -11,8 +11,12 @@ router.get('/songs', (req, res) => {
       {id: 3 ,name: 'Goosebumps', artist: 'Travis Scott', emojis: ['🔥'], spotify_id: '6gBFPUFcJLzWGx4lenP6h2'}
     ]
     spotifyAuthorize(request, client_id, client_secret, (err, spotifyRes, body) => {
+      if(err)
+        console.error(err)
       if(!err && spotifyRes.statusCode === 200)
         spotifyGetInfo(request, 'tracks', songs.map((song)=>song.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
+          if(err)
+            console.error(err)
           if(!err && spotifyRes.statusCode === 200)
             return res.status(200).json(mergeResults (songs, body.tracks))
         })

@@ -38,7 +38,7 @@ export default class extends Component {
         const songs = this.state.search.value?filterWithEmojis(split(this.state.search.value, ''), this.state.songs):[]
         return (
             <div>
-                <Banner/>
+                <Banner title={<span>Hey there! <span role="img" aria-label="hand">👋</span></span>} description={<span>Put in some emojis and let me <span role="img" aria-label="loupe">🔎</span> a <span role="img" aria-label="music-note">🎵</span> just for you!</span>}/>
                 <div className="form-group col-12 search-type" onChange={this.handleSearchType}>
                   <input name="type" type="radio" value="songs" defaultChecked/> Songs <input name="type" type="radio" value="artists"/> Artists <input name="type" type="radio" value="both"/> Both
                 </div>
