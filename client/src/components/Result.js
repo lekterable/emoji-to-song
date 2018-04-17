@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default (props) => {
-    console.log(props)
     return (
         props.type==='artist'?
         <li className="list-group-item col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4">

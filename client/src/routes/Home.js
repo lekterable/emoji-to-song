@@ -31,7 +31,7 @@ export default class extends Component {
         this.setState({search: {...this.state.search, value:e.target.value}})
       }
       handleEmojiInput = (emoji)=>{
-        this.setState({search:{...this.state.search, value:this.state.search.value+emoji.native}})
+        this.setState({search:{...this.state.search, value: this.state.search.value+emoji.native}})
       }
     render(){
         const artists = this.state.search.value?filterWithEmojis(split(this.state.search.value, ''), this.state.artists):[]
@@ -45,7 +45,7 @@ export default class extends Component {
                 <div className="form-group col-12 search-value">
                   <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.search.value} onChange={this.handleSearch} type="text"/>
                 </div>
-                <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleEmojiInput} color='#D9230F'/>
+                <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleEmojiInput} color='#D9230F' recent={['fire', 'cry', 'sob', 'man', 'woman', 'us', 'flag-mx']}/>
                 <ResultsList songs={songs} artists={artists} search={this.state.search}/>
             </div>
         )

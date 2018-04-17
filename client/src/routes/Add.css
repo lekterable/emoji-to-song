@@ -1,0 +1,17 @@
+.add-type {
+    font-size: 17px;
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+    .add-type{
+        font-size: 15px;
+    }
+}
