@@ -21,7 +21,6 @@ router.get('/artists', (req, res) => {
       return res.status(200).json(mergeResults (artists, body.artists))
     })
   })
-
 })
 
 module.exports = router

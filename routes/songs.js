@@ -17,7 +17,7 @@ router.get('/songs', (req, res) => {
     spotifyGetInfo(request, 'tracks', songs.map((song) => song.spotify_id).join(), body.access_token, (err, spotifyRes, body) => {
       if(err || spotifyRes.statusCode !== 200)
         console.error(err)
-      return res.status(200).json(mergeResults(songs, body.tracks))
+      return res.status(200).json({success: true, message: mergeResults(songs, body.tracks)})
     })
   })
 })
@@ -35,7 +35,11 @@ router.post('/songs', (req, res) => {
         artist: body.tracks.items[0].artists[0].name,
         emojis : req.body.emojis
       })
-      console.log(song)
+      song.save(function (err, post) {
+        if (err)
+          return res.status(400).json({success: false, message: 'Bad request'})
+        return res.status(201).json({success: true, message: post})
+      })
     })
   })
 })
