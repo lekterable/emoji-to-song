@@ -13,15 +13,13 @@ router.get('/artists', (req, res) => {
     {id: 5, name: 'Beyonce', emojis: ['🇺🇸','👩','🔥'], spotify_id:'6vWDO969PvNqNYHIOW5v0m'}
   ]
   spotifyAuthorize(request, client_id, client_secret, (err, spotifyRes, body) => {
-    if(err)
+    if(err || spotifyRes.statusCode !== 200)
       console.error(err)
-    if(!err && spotifyRes.statusCode === 200)
-      spotifyGetInfo(request, 'artists', artists.map((artist)=>artist.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
-        if(err)
-          console.error(err)
-        if(!err && spotifyRes.statusCode === 200)
-          return res.status(200).json(mergeResults (artists, body.artists))
-      })
+    spotifyGetInfo(request, 'artists', artists.map((artist)=>artist.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
+      if(err || spotifyRes.statusCode !== 200)
+        console.error(err)
+      return res.status(200).json(mergeResults (artists, body.artists))
+    })
   })
 
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Picker } from 'emoji-mart'
-import { filterWithEmojis } from '../libs'
+import { filterWithEmojis, removeLastEmoji } from '../libs'
 import { split } from 'lodash'
 import Banner from '../components/Banner'
 import ResultsList from '../components/ResultsList'
@@ -16,22 +16,29 @@ export default class extends Component {
         }
       }
       componentDidMount(){
-        fetch('/api/artists')
-        .then((res)=>res.json())
-        .then((res)=>this.setState({artists: res}))
-    
         fetch('/api/songs')
         .then((res)=>res.json())
         .then((res)=>this.setState({songs: res}))
+        .catch((err) => console.error(err))
+
+        fetch('/api/artists')
+        .then((res)=>res.json())
+        .then((res)=>this.setState({artists: res}))
+        .catch((err) => console.error(err))
+    
       }
       handleSearchType = (e)=>{
         this.setState({search: {...this.state.search, type:e.target.value}})
       }
-      handleSearch = (e)=>{
-        this.setState({search: {...this.state.search, value:e.target.value}})
-      }
-      handleEmojiInput = (emoji)=>{
+      handleAddEmoji = (emoji)=>{
         this.setState({search:{...this.state.search, value: this.state.search.value+emoji.native}})
+      }
+      handleUndoEmoji = () => {
+        this.setState({search: {...this.state.search, value: removeLastEmoji(split(this.state.search.value, ''))}})
+      }
+      handleInputKeyDown = (e) => {
+        if(e.which === 8 || e.which === 46)
+          this.setState({search: {...this.state.search, value: removeLastEmoji(split(this.state.search.value, ''))}})
       }
     render(){
         const artists = this.state.search.value?filterWithEmojis(split(this.state.search.value, ''), this.state.artists):[]
@@ -43,9 +50,9 @@ export default class extends Component {
                   <input name="type" type="radio" value="songs" defaultChecked/> Songs <input name="type" type="radio" value="artists"/> Artists <input name="type" type="radio" value="both"/> Both
                 </div>
                 <div className="form-group col-12 search-value">
-                  <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.search.value} onChange={this.handleSearch} type="text"/>
+                  <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.search.value} type="text" onKeyDown={this.handleInputKeyDown} placeholder="Search..."/>
                 </div>
-                <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleEmojiInput} color='#D9230F' recent={['fire', 'cry', 'sob', 'man', 'woman', 'us', 'flag-mx']}/>
+                <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleAddEmoji} color='#D9230F' recent={['fire', 'cry', 'sob', 'man', 'woman', 'us', 'flag-mx']}/>
                 <ResultsList songs={songs} artists={artists} search={this.state.search}/>
             </div>
         )

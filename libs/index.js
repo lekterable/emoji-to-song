@@ -11,8 +11,18 @@ module.exports = {
             headers: {'Authorization': 'Bearer ' + token},
             json: true
             }, (err, res, body) => {
-             callback(err, res, body)
+                callback(err, res, body)
             })
+    },
+    spotifySearch : (request, type, query, token, callback) => {
+        request.get({
+            url: `https://api.spotify.com/v1/search?type=${type}&q=${query}`,
+            headers: {'Authorization': 'Bearer ' + token},
+            json: true
+            }, (err, res, body)=>{
+                callback(err, res, body)
+            })
+
     },
     spotifyAuthorize : (request, client_id, client_secret, callback) => {
         request.post({

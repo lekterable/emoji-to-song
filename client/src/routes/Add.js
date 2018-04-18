@@ -27,8 +27,16 @@ export default class extends Component {
     }
     handleAddSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.add)
+        if(this.state.add.type==='song')
+            fetch('/api/songs', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(this.state.add)})
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch((err) => console.error(err))
     }
+    handleInputKeyDown = (e) => {
+        if(e.which === 8 || e.which === 46)
+          this.setState({add: {...this.state.add, emojis: removeLastEmoji(split(this.state.add.emojis, ''))}})
+      }
     render(){
         return (
             <div>
@@ -38,15 +46,10 @@ export default class extends Component {
                         <input name="type" type="radio" value="song" defaultChecked/> Song <input name="type" type="radio" value="artist"/> Artist
                     </div>
                     <div className="form-group col-12 add-value">
-                        <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" required value={this.state.add.name} type="text" onChange={this.handleAddName} placeholder={this.state.add.type==='song'?'Title':'Name'}/>
+                        <input className="form-control col-12 offset-md-3 col-md-6 offset-lg-5 col-lg-2" required value={this.state.add.name} type="text" onChange={this.handleAddName} placeholder={this.state.add.type==='song'?'Title...':'Name...'}/>
                     </div>
                     <div className="form-group col-12">
-                        <div className="input-group">
-                            <input className="form-control offset-md-3 col-md-6 offset-lg-5 col-lg-2" value={this.state.add.emojis} type="text" required disabled placeholder='Emojis'/>
-                            <div className="input-group-append">
-                                <button onClick={this.handleUndoEmoji} className="btn btn-outline-secondary" type="button"><i className="fa fa-reply"></i></button>
-                            </div>
-                        </div>
+                        <input className="form-control offset-md-3 col-md-6 offset-lg-5 col-lg-2" onKeyDown={this.handleInputKeyDown} value={this.state.add.emojis} type="text" required placeholder='Emojis...'/>
                     </div>
                     <Picker set='apple' showSkinTones={false} showPreview={false} onSelect={this.handleAddEmoji} color='#D9230F'/>
                     <div className="form-group col-12">
