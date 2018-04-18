@@ -27,11 +27,27 @@ export default class extends Component {
     }
     handleAddSubmit = (e) => {
         e.preventDefault()
-        if(this.state.add.type==='song')
-            fetch('/api/songs', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(this.state.add)})
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch((err) => console.error(err))
+
+        switch(this.state.add.type){
+            case 'song':
+                return fetch('/api/songs', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(this.state.add)})
+                .then(res => res.json())
+                .then(res => {
+                    if(res.success)
+                        this.setState({add: {...this.state.add, name: '', emojis: ''}})
+                })
+                .catch((err) => console.error(err))
+            case 'artist':
+                return fetch('/api/artists', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(this.state.add)})
+                .then(res => res.json())
+                .then(res => {
+                    if(res.success)
+                        this.setState({add: {...this.state.add, name: '', emojis: ''}})
+                })
+                .catch((err) => console.error(err))
+            default:
+                return
+        }
     }
     handleInputKeyDown = (e) => {
         if(e.which === 8 || e.which === 46)

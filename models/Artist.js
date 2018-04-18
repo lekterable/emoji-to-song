@@ -4,12 +4,10 @@ let ArtistSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true
   },
   emojis: {
     type: String,
     required: true,
-    unique: true
   },
   spotify_id: {
     type: String,

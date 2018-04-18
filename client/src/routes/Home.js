@@ -18,12 +18,12 @@ export default class extends Component {
       componentDidMount(){
         fetch('/api/songs')
         .then((res)=>res.json())
-        .then((res)=>this.setState({songs: res}))
+        .then((res)=>this.setState({songs: res.message}))
         .catch((err) => console.error(err))
 
         fetch('/api/artists')
         .then((res)=>res.json())
-        .then((res)=>this.setState({artists: res}))
+        .then((res)=>this.setState({artists: res.message}))
         .catch((err) => console.error(err))
     
       }
