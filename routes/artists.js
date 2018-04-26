@@ -1,18 +1,21 @@
 const router = require('express').Router()
 const request = require('request')
-const { spotifyAuthorize, spotifyGetInfo, spotifySearch, mergeResults } = require('../libs')
+const { split } = require('lodash')
+const { spotifyAuthorize, spotifyGetInfo, spotifySearch, mergeResults, removeDuplicates } = require('../libs')
 const Artist = require('../models/Artist')
 const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
 
 router.get('/artists', (req, res) => {
   Artist.find((err, artists)=>{
+    if(err)
+      return console.error(err)
     spotifyAuthorize(request, client_id, client_secret, (err, spotifyRes, body) => {
       if(err || spotifyRes.statusCode !== 200)
-        console.error(err)
+        return console.error(err)
       spotifyGetInfo(request, 'artists', artists.map((artist)=>artist.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
         if(err || spotifyRes.statusCode !== 200)
-          console.error(err)
+          return console.error(err)
         return res.status(200).json({success: true, message: mergeResults (artists, body.artists)})
       })
     })
@@ -37,7 +40,7 @@ router.post('/artists', (req, res) => {
           artist.save()
           return res.status(201).json({success: true, message: 'Artist updated'})
         }
-        doc.emojis += artist.emojis
+        doc.emojis = removeDuplicates(split(doc.emojis+artist.emojis,''))
         doc.save()
         return res.status(201).json({success: true, message: 'Artist saved'})
       })

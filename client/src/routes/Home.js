@@ -34,12 +34,9 @@ export default class extends Component {
         if(!split(this.state.search.value,'').find((item)=>item===emoji.native))
           this.setState({search:{...this.state.search, value: this.state.search.value+emoji.native}})
       }
-      handleUndoEmoji = () => {
-        this.setState({search: {...this.state.search, value: removeLastEmoji(split(this.state.search.value, ''))}})
-      }
       handleInputKeyDown = (e) => {
         if(e.which === 8 || e.which === 46)
-          this.setState({search: {...this.state.search, value: removeLastEmoji(split(this.state.search.value, ''))}})
+          this.setState({search: {...this.state.search, value: removeLastEmoji(split(this.state.search.value, '')).join('') }})
       }
     render(){
         const artists = this.state.search.value?filterWithEmojis(split(this.state.search.value, ''), this.state.artists):[]

@@ -1,7 +1,14 @@
 module.exports = {
+    removeDuplicates : (array) => {
+        return array.reduce((prev, curr) => {
+            if(!prev.find((item) => item === curr))
+                return [...prev, curr]
+            return prev
+        }, [])
+    },
     mergeResults : (dbResults, spotifyResults) => {
-        return spotifyResults.map((result)=>{
-            const match = dbResults.find((dbResult)=>dbResult.spotify_id === result.id)
+        return spotifyResults.map((result) => {
+            const match = dbResults.find((dbResult) => dbResult.spotify_id === result.id)
             return {...result, emojis: match.emojis, spotify_id: match.spotify_id, id: match.id}
         })
     },
@@ -19,7 +26,7 @@ module.exports = {
             url: `https://api.spotify.com/v1/search?type=${type}&q=${query}`,
             headers: {'Authorization': 'Bearer ' + token},
             json: true
-            }, (err, res, body)=>{
+            }, (err, res, body) => {
                 callback(err, res, body)
             })
 
@@ -30,7 +37,7 @@ module.exports = {
             headers: {'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))},
             form: {grant_type: 'client_credentials'},
             json: true
-          }, (err, res, body)=>{
+          }, (err, res, body) => {
                 callback(err, res, body)
           })
     }

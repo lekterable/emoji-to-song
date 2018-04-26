@@ -24,7 +24,7 @@ export default class extends Component {
             this.setState({add: {...this.state.add, emojis: this.state.add.emojis+emoji.native}})
     }
     handleUndoEmoji = () => {
-       this.setState({add: {...this.state.add, emojis: removeLastEmoji(split(this.state.add.emojis, ''))}})
+       this.setState({add: {...this.state.add, emojis: removeLastEmoji(split(this.state.add.emojis, '')).join('') }})
     }
     handleAddSubmit = (e) => {
         e.preventDefault()

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const request = require('request')
-const { spotifyAuthorize, spotifyGetInfo, spotifySearch, mergeResults } = require('../libs')
+const { split } = require('lodash')
+const { spotifyAuthorize, spotifyGetInfo, spotifySearch, mergeResults, removeDuplicates } = require('../libs')
 const Song = require('../models/Song')
 const client_id = process.env.CLIENT_ID
 const client_secret = process.env.CLIENT_SECRET
@@ -41,7 +42,7 @@ router.post('/songs', (req, res) => {
           song.save()
           return res.status(201).json({success: true, message: 'Song updated'})
         }
-        doc.emojis += song.emojis
+        doc.emojis = removeDuplicates(split(doc.emojis+song.emojis,'')).join('')
         doc.save()
         return res.status(201).json({success: true, message: 'Song saved'})
       })
