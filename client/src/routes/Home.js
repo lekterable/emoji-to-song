@@ -31,6 +31,7 @@ export default class extends Component {
         this.setState({search: {...this.state.search, type:e.target.value}})
       }
       handleAddEmoji = (emoji)=>{
+        if(!split(this.state.search.value,'').find((item)=>item===emoji.native))
           this.setState({search:{...this.state.search, value: this.state.search.value+emoji.native}})
       }
       handleUndoEmoji = () => {
