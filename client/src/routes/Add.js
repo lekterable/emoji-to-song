@@ -20,14 +20,14 @@ export default class extends Component {
         this.setState({add: {...this.state.add, type:e.target.value}})
     }
     handleAddEmoji = (emoji) => {
-        this.setState({add: {...this.state.add, emojis: this.state.add.emojis+emoji.native}})
+        if(!split(this.state.add.emojis,'').find((item)=>item===emoji.native))
+            this.setState({add: {...this.state.add, emojis: this.state.add.emojis+emoji.native}})
     }
     handleUndoEmoji = () => {
        this.setState({add: {...this.state.add, emojis: removeLastEmoji(split(this.state.add.emojis, ''))}})
     }
     handleAddSubmit = (e) => {
         e.preventDefault()
-
         switch(this.state.add.type){
             case 'song':
                 return fetch('/api/songs', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(this.state.add)})

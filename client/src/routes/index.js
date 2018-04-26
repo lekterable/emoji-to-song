@@ -10,7 +10,6 @@ import Add from './Add'
 export default class extends Component {
   render() {
     return (
-     
       <div className="App">
         <Router>
           <div>

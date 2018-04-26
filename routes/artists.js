@@ -35,7 +35,7 @@ router.post('/artists', (req, res) => {
         name: body.artists.items[0].name,
         emojis : req.body.emojis
       })
-      artist.save(function (err, artist) {
+      artist.save((err, artist) => {
         if (err)
           return res.status(400).json({success: false, message: 'Bad request'})
         return res.status(201).json({success: true, message: artist})
