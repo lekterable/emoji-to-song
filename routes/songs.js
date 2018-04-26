@@ -34,7 +34,7 @@ router.post('/songs', (req, res) => {
         artist: body.tracks.items[0].artists[0].name,
         emojis : req.body.emojis
       })
-      Song.findOne({spotify_id: body.tracks.items[0].id}, (err, doc)=>{
+      Song.findOne({spotify_id: song.spotify_id}, (err, doc)=>{
         if(err)
           return console.error(err.message)
         if(!doc){
