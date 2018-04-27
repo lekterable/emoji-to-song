@@ -10,13 +10,15 @@ router.get('/artists', (req, res) => {
   Artist.find((err, artists)=>{
     if(err)
       return console.error(err)
+    if(artists=='')
+      return res.status(200).json({success: true, message: artists})
     spotifyAuthorize(request, client_id, client_secret, (err, spotifyRes, body) => {
       if(err || spotifyRes.statusCode !== 200)
         return console.error(err)
-      spotifyGetInfo(request, 'artists', artists.map((artist)=>artist.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
+      spotifyGetInfo(request, 'artists', artists.map((artist) => artist.spotify_id).join(), body.access_token, (err, spotifyRes, body)=>{
         if(err || spotifyRes.statusCode !== 200)
-          return console.error(err)
-        return res.status(200).json({success: true, message: mergeResults (artists, body.artists)})
+          return console.error('err')
+        return res.status(200).json({success: true, message: mergeResults(artists, body.artists)})
       })
     })
   })
@@ -35,7 +37,7 @@ router.post('/artists', (req, res) => {
       })
       Artist.findOne({spotify_id: artist.spotify_id}, (err, doc)=>{
         if(err)
-          return console.error(err.message)
+          return console.error(err)
         if(!doc){
           artist.save()
           return res.status(201).json({success: true, message: 'Artist updated'})

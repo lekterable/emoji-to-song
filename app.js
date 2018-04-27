@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const config = require('./config')
 mongoose.Promise = Promise
 
-mongoose.connect(config.database, ()=>console.log('Connected with database'))
+mongoose.connect(config.database, () => console.log('Connected with database'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
