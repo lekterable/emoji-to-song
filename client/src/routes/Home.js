@@ -12,7 +12,7 @@ export default class extends Component {
         songs: [],
         search: {
           value:'',
-          type: 'songs'
+          type: 'both'
         }
       }
       componentDidMount(){
