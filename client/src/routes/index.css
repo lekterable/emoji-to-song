@@ -1,12 +1,12 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
-nav{
-  margin-bottom: 20px;
+nav {
+	margin-bottom: 20px;
 }
 
 div.container-fluid {
-  padding-left: 0;
-  padding-right: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
