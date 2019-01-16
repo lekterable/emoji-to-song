@@ -16,23 +16,18 @@ export default class extends Component {
 		}
 	}
 	componentDidMount() {
-		fetch('/api/songs')
-			.then((res) => res.json())
-			.then((res) => this.setState({ songs: res.message }))
-			.catch((err) => console.error(err))
-
-		fetch('/api/artists')
-			.then((res) => res.json())
-			.then((res) => this.setState({ artists: res.message }))
-			.catch((err) => console.error(err))
+		Promise.all([fetch('/api/songs'), fetch('/api/artists')])
+			.then(([songs, artists]) => Promise.all([songs.json(), artists.json()]))
+			.then(([songs, artists]) =>
+				this.setState({ songs: songs.message, artists: artists.message })
+			)
+			.catch(err => console.error(err))
 	}
-	handleSearchType = (e) => {
+	handleSearchType = e => {
 		this.setState({ search: { ...this.state.search, type: e.target.value } })
 	}
-	handleAddEmoji = (emoji) => {
-		if (
-			!split(this.state.search.value, '').find((item) => item === emoji.native)
-		)
+	handleAddEmoji = emoji => {
+		if (!split(this.state.search.value, '').find(item => item === emoji.native))
 			this.setState({
 				search: {
 					...this.state.search,
@@ -40,7 +35,7 @@ export default class extends Component {
 				}
 			})
 	}
-	handleInputKeyDown = (e) => {
+	handleInputKeyDown = e => {
 		if (e.which === 8 || e.which === 46)
 			this.setState({
 				search: {
