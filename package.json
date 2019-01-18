@@ -4,9 +4,9 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"install": "cd client && npm install",
-		"heroku-postbuild": "cd client && npm run build",
-		"start": "concurrently  \"nodemon server.js\" \"cd client && PORT=3000 npm start\""
+		"start": "node server.js",
+		"start:dev": "concurrently \"nodemon server.js\" \"cd client && PORT=3000 npm start\"",
+		"heroku-postbuild": "cd client && npm install && npm run build"
 	},
 	"author": "",
 	"license": "ISC",
