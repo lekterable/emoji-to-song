@@ -7,8 +7,8 @@ const config = require('./config')
 mongoose.Promise = Promise
 
 mongoose.connect(
-	config.database,
-	() => console.log('Connected with database')
+  config.database,
+  () => console.log('Connected with database')
 )
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -19,7 +19,7 @@ app.use('/api', require('./routes/artists'))
 app.use('/api', require('./routes/songs'))
 
 app.get('*', function(request, response) {
-	response.sendFile(path.join(__dirname, './client/build', 'index.html'))
+  response.sendFile(path.join(__dirname, './client/build', 'index.html'))
 })
 
 module.exports = app
