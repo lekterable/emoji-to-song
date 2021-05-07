@@ -5,7 +5,7 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "emoji-mart": "^2.5.1",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-router-dom": "^4.2.2",
